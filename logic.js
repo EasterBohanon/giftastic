@@ -1,9 +1,13 @@
 // Lets make our Variables that will set the functions of this site
+
 var topics = ["Thunder Cats", "Justice League", "Spongebob", "Ed Edd and Eddy", "Cat and Dog", "Rugrats"];
 
-// var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + cartoons + "&api_key=AZ8V9eq9gkTx4U3YUG0dXrTIHFK2EJki&limit=10";
 
 var userInput = $("#input-val").val().trim();
+
+
+
+
 
 
 
@@ -18,13 +22,16 @@ function renderButtons() {
         button.attr("term", topics[i]);
         $("#new-buttons-here").append(button);
         console.log(userInput);
+        console.log(topics[i]);
+        
 
     }
 }
 
-$("#input-val").on("click", function (event) {
+$("#submit").on("click", function (event) {
+  
     event.preventDefault();
-
+    userInput = $("#input-val").val().trim();
     // pushing those values into the topics array
     topics.push(userInput);
 
@@ -40,6 +47,36 @@ renderButtons();
 
 
 // when buttons are clicked will show gifs
+$("button").on("click", function (event){
+    var cartoons = $(this).attr("term");
+    console.log(this);
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + cartoons + "&api_key=AZ8V9eq9gkTx4U3YUG0dXrTIHFK2EJki&limit=10";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(response) {
+          var results = response.data;
+          console.log(response);
+          console.log(this);
+
+          for (var i = 0; i < results.length; i++) {
+            var gifDiv = $("<div>");
+
+            var rating = results[i].rating;
+
+            var p = $("<p>").text("Rating: " + rating);
+
+            var personImage = $("<img>");
+            personImage.attr("src", results[i].images.fixed_height.url);
+
+            gifDiv.prepend(p);
+            gifDiv.prepend(personImage);
+
+            $("#gifs-go-here").prepend(gifDiv);
+          }
+
+        });
+});
 
 // Will pause and play image
 
