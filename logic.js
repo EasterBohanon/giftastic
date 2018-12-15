@@ -1,6 +1,6 @@
 // Lets make our Variables that will set the functions of this site
 
-var topics = ["Thunder Cats", "Justice League", "Spongebob", "Ed Edd and Eddy", "Cat and Dog", "Rugrats"];
+var topics = ["Thunder Cats", "Justice League", "Spongebob", "Ed Edd and Eddy", "CatDog", "Rugrats","Lizzy Mcguire", "Courage the Cowardly Dog", "South Park", "The Simpsons"];
 
 
 var userInput = $("#input-val").val().trim();
